@@ -1,2 +1,2 @@
 # Trading-Bot-Strategies
-Trading bot strategies with freqtrade or piggybot
+Trading bot strategies with freqtrade
