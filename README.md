@@ -1,2 +1,2 @@
 # Trading-Bot-Strategies
-Trading bot strategies with freqtrade
+Trading bot strategy with freqtrade based on bollinger bands
