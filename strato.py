@@ -32,11 +32,6 @@ class Strato(IStrategy):
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
 
-        # Stoch RSI
-        stoch_rsi = ta.STOCHRSI(dataframe)
-        dataframe['fastd_rsi'] = stoch_rsi['fastd']
-        dataframe['fastk_rsi'] = stoch_rsi['fastk']
-
         # Bollinger bands
         bollinger1 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=20, stds=2)
         dataframe['bb_lowerband1'] = bollinger1['lower']
