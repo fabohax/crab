@@ -1,2 +1,2 @@
 # STRATO freqtrade strategy
-Trading bot strategy with freqtrade based on bollinger bands
+Freqtrade trading strategy with Bollinger Bands & Stochastic RSI.
