@@ -1,79 +1,137 @@
+# pragma pylint: disable=missing-docstring, invalid-name, pointless-string-statement
+
 import talib.abstract as ta
 from pandas import DataFrame
 
 import freqtrade.vendor.qtpylib.indicators as qtpylib
-from freqtrade.indicator_helpers import fishers_inverse
 from freqtrade.strategy.interface import IStrategy
 
 
-class Strato(IStrategy):
+class strato(IStrategy):
+    """
+    Default Strategy provided by freqtrade bot.
+    Please do not modify this strategy, it's  intended for internal use only.
+    Please look at the SampleStrategy in the user_data/strategy directory
+    or strategy repository https://github.com/freqtrade/freqtrade-strategies
+    for samples and inspiration.
+    """
+    INTERFACE_VERSION = 2
 
+    # Minimal ROI designed for the strategy
     minimal_roi = {
-        "0":   0.041010101010101010,
-        "25":  0.022010101010101010,
-        "39":  0.010101010101010101,
-        "137": 0
+         "0": 0.01, "4": 0.0075, "7": 0.005, "9": 0.0025, "15": 0
     }
-    stoploss = -0.566053026840454
-    ticker_interval = '5m'
+
+    # Optimal stoploss designed for the strategy
+    stoploss = -0.0022
+    
+
+    # Optimal ticker interval for the strategy
+    ticker_interval = '1m'
+
+    # Optional order type mapping
     order_types = {
-        'buy': 'market',
-        'sell': 'market',
+        'buy': 'limit',
+        'sell': 'limit',
         'stoploss': 'market',
         'stoploss_on_exchange': False
     }
+
+    # Number of candles the strategy requires before producing valid signals
+    startup_candle_count: int = 20
+
+    # Optional time in force for orders
     order_time_in_force = {
         'buy': 'gtc',
         'sell': 'gtc',
     }
 
     def informative_pairs(self):
+        """
+        Define additional, informative pair/interval combinations to be cached from the exchange.
+        These pair/interval combinations are non-tradeable, unless they are part
+        of the whitelist as well.
+        For more information, please consult the documentation
+        :return: List of tuples in the format (pair, interval)
+            Sample: return [("ETH/USDT", "5m"),
+                            ("BTC/USDT", "15m"),
+                            ]
+        """
         return []
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        """
+        Adds several different TA indicators to the given DataFrame
+
+        Performance Note: For the best performance be frugal on the number of indicators
+        you are using. Let uncomment only the indicator you are using in your strategies
+        or your hyperopt configuration, otherwise you will waste your memory and CPU usage.
+        :param dataframe: Dataframe with data from the exchange
+        :param metadata: Additional information, like the currently traded pair
+        :return: a Dataframe with all mandatory indicators for the strategies
+        """
 
         # Bollinger bands
-        bollinger1 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=20, stds=2)
-        dataframe['bb_lowerband1'] = bollinger1['lower']
+        bollinger21 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=2.1)
+        dataframe['bb_low21'] = bollinger21['lower']
+        dataframe['bb_mid21'] = bollinger21['mid']
+        dataframe['bb_high21'] = bollinger21['upper']
 
-        bollinger2 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=20, stds=3)
-        dataframe['bb_upperband2'] = bollinger2['upper']
+        bollinger27 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=2.7)
+        dataframe['bb_low27'] = bollinger27['lower']
+        dataframe['bb_mid27'] = bollinger27['mid']
+        dataframe['bb_high27'] = bollinger27['upper']
+
+        # MACD
+        macd = ta.MACD(dataframe)
+        dataframe['macd'] = macd['macd']
+        dataframe['macdsignal'] = macd['macdsignal']
+        dataframe['macdhist'] = macd['macdhist']
+
+        #RSI
+        dataframe['rsi'] = ta.RSI(dataframe, timeperiod=21)
+
+        #STOCH_RSI
+        period = 21
+        smoothD = 3
+        smoothK = 3
+        stochrsi  = (dataframe['rsi'] - dataframe['rsi'].rolling(period).min()) / (dataframe['rsi'].rolling(period).max() - dataframe['rsi'].rolling(period).min())
+        dataframe['fastk'] = stochrsi.rolling(smoothK).mean() * 100
+        dataframe['fastd'] = dataframe['fastk'].rolling(smoothD).mean()
 
         return dataframe
 
     def populate_buy_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-
+        """
+        Based on TA indicators, populates the buy signal for the given dataframe
+        :param dataframe: DataFrame
+        :param metadata: Additional information, like the currently traded pair
+        :return: DataFrame with buy column
+        """
         dataframe.loc[
             (
-                (dataframe['close']<(0.999*dataframe['bb_lowerband1']))
+               ((dataframe['macdsignal']<0) &
+               (dataframe['fastk']<20) &
+               ((dataframe['fastd']-dataframe['fastk'])<3)) |
+               (((dataframe['close']+dataframe['low'])/2) < dataframe['bb_low21'])
             ),
             'buy'] = 1
 
         return dataframe
 
     def populate_sell_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-
+        """
+        Based on TA indicators, populates the sell signal for the given dataframe
+        :param dataframe: DataFrame
+        :param metadata: Additional information, like the currently traded pair
+        :return: DataFrame with buy column
+        """
         dataframe.loc[
             (
-                (qtpylib.crossed_above(dataframe['open'],(0.994*dataframe['bb_upperband2'])))
+               (dataframe['macdsignal']>dataframe['macdhist']) |
+               (dataframe['high'] > dataframe['bb_high27']) |
+               (qtpylib.crossed_below(dataframe['fastk'],80))
             ),
             'sell'] = 1
         return dataframe
 
-
-# Best result:
-
-#   2322/5000:    378 trades. Avg profit  0.18%. Total profit  697.97824604 USDT (  69.80Σ%). Avg duration 117.2 mins. Objective: 1.69246
-
-# Buy hyperspace params:
-# {'fastd_rsi-value': 24, 'fastk_rsi-value': 3, 'trigger': 'bb_lower1'}
-# Sell hyperspace params:
-# {   'sell-fastd_rsi-value': 67,
-#     'sell-fastk_rsi-value': 92,
-#     'sell-trigger': 'sell-bb_upper2'}
-# ROI table:
-# {   0: 0.043830430840248555,
-#     25: 0.022071662190063887,
-#     39: 0.01079222321562015,
-#     137: 0}
-# Stoploss: -0.566053026840454
