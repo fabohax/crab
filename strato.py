@@ -72,10 +72,10 @@ class strato(IStrategy):
         """
 
         # Bollinger bands
-        bollinger21 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=2.1)
-        dataframe['bb_low21'] = bollinger21['lower']
-        dataframe['bb_mid21'] = bollinger21['mid']
-        dataframe['bb_high21'] = bollinger21['upper']
+        bollinger42 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=4.2)
+        dataframe['bb_low42'] = bollinger21['lower']
+        dataframe['bb_mid42'] = bollinger21['mid']
+        dataframe['bb_high42'] = bollinger21['upper']
 
         bollinger27 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=2.7)
         dataframe['bb_low27'] = bollinger27['lower']
@@ -113,7 +113,7 @@ class strato(IStrategy):
                ((dataframe['macdsignal']<0) &
                (dataframe['fastk']<20) &
                ((dataframe['fastd']-dataframe['fastk'])<3)) |
-               (((dataframe['close']+dataframe['low'])/2) < dataframe['bb_low21'])
+               (((dataframe['close']+dataframe['low'])/2) < dataframe['bb_low42'])
             ),
             'buy'] = 1
 
