@@ -5,7 +5,7 @@ Freqtrade trading strategy with Bollinger Bands, MACD & Stochastic RSI.
 
 ## Buy
 * When price is oversold and losing momentum at Stochastic RSI and MACD signal is below 0.
-* When price is lower than Lower Bollinger Band since 14 Periods.
+* When price is lower than Lower Bollinger Band since 14 Periods with 3.2 Standard Deviation.
 
 ## Sell
 * When price is overbought and crossing above 80 Stochastic RSI value.
