@@ -1,7 +1,7 @@
 # STRATO
 Freqtrade trading strategy with Bollinger Bands, MACD & Stochastic RSI.
 
-![Buy/Sell signals](/preview.png)
+![Buy/Sell signals](preview.png)
 
 ## Buy
 * When price is oversold and losing momentum at Stochastic RSI and MACD signal is below 0.
