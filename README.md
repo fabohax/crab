@@ -20,3 +20,5 @@ Freqtrade trading strategy with Bollinger Bands, MACD & Stochastic RSI.
 
 ## Trailing-Stoploss
 * No
+
+###USE UNDER YOUR OWN RISK
