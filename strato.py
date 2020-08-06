@@ -19,15 +19,15 @@ class strato(IStrategy):
 
     # Minimal ROI designed for the strategy
     minimal_roi = {
-         "0": 0.01, "4": 0.0075, "7": 0.005, "9": 0.0025, "15": 0
+         "0": 0.004, "12": 0.002, "24": 0.001, "48": 0
     }
 
     # Optimal stoploss designed for the strategy
-    stoploss = -0.0022
+    stoploss = -0.0021
     
 
     # Optimal ticker interval for the strategy
-    ticker_interval = '1m'
+    ticker_interval = '3m'
 
     # Optional order type mapping
     order_types = {
@@ -72,32 +72,11 @@ class strato(IStrategy):
         """
 
         # Bollinger bands
-        bollinger42 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=4.2)
-        dataframe['bb_low42'] = bollinger21['lower']
-        dataframe['bb_mid42'] = bollinger21['mid']
-        dataframe['bb_high42'] = bollinger21['upper']
+        bollinger = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=3.2)
+        dataframe['bb_high'] = bollinger['upper']
 
-        bollinger27 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=2.7)
-        dataframe['bb_low27'] = bollinger27['lower']
-        dataframe['bb_mid27'] = bollinger27['mid']
-        dataframe['bb_high27'] = bollinger27['upper']
-
-        # MACD
-        macd = ta.MACD(dataframe)
-        dataframe['macd'] = macd['macd']
-        dataframe['macdsignal'] = macd['macdsignal']
-        dataframe['macdhist'] = macd['macdhist']
-
-        #RSI
-        dataframe['rsi'] = ta.RSI(dataframe, timeperiod=21)
-
-        #STOCH_RSI
-        period = 21
-        smoothD = 3
-        smoothK = 3
-        stochrsi  = (dataframe['rsi'] - dataframe['rsi'].rolling(period).min()) / (dataframe['rsi'].rolling(period).max() - dataframe['rsi'].rolling(period).min())
-        dataframe['fastk'] = stochrsi.rolling(smoothK).mean() * 100
-        dataframe['fastd'] = dataframe['fastk'].rolling(smoothD).mean()
+        bollinger2 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=2.7)
+        dataframe['bb_low'] = bollinger2['lower']
 
         return dataframe
 
@@ -110,10 +89,7 @@ class strato(IStrategy):
         """
         dataframe.loc[
             (
-               ((dataframe['macdsignal']<0) &
-               (dataframe['fastk']<20) &
-               ((dataframe['fastd']-dataframe['fastk'])<3)) |
-               (((dataframe['close']+dataframe['low'])/2) < dataframe['bb_low42'])
+                dataframe['close']<dataframe['bb_low']
             ),
             'buy'] = 1
 
@@ -128,9 +104,7 @@ class strato(IStrategy):
         """
         dataframe.loc[
             (
-               (dataframe['macdsignal']>dataframe['macdhist']) |
-               (dataframe['high'] > dataframe['bb_high27']) |
-               (qtpylib.crossed_below(dataframe['fastk'],80))
+                dataframe['close']>dataframe['bb_high']
             ),
             'sell'] = 1
         return dataframe
