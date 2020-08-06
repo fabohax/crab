@@ -1,8 +1,6 @@
 # Strato
 Freqtrade trading strategy with Bollinger Bands, MACD & Stochastic RSI.
 
-![Buy/Sell signals](preview.png)
-
 
 ## ROI
 * Yes
