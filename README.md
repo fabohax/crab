@@ -1,5 +1,5 @@
 # Strato
-Freqtrade trading strategy with Bollinger Bands, MACD & Stochastic RSI.
+Freqtrade trading strategy with Bollinger Bands.
 
 
 ### ROI
