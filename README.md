@@ -2,22 +2,22 @@
 Freqtrade trading strategy with Bollinger Bands, MACD & Stochastic RSI.
 
 
-## ROI
+### ROI
 * Yes
 
-## Stoploss 
+### Stoploss 
 * Yes
 
-## Trailing-Stoploss
+### Trailing-Stoploss
 * No
 
-## Multiple Timeframes
+### Multiple Timeframes
 * No
 
-## Backtested Results/Month
+### Backtested Results/Month
 * 10%-15%
 
-## Author License
+### Author License
 * Free
 
-### (!) USE UNDER YOUR OWN RISK
+#### (!) USE UNDER YOUR OWN RISK
