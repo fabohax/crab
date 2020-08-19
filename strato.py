@@ -32,13 +32,13 @@ class strato(IStrategy):
     # Optional order type mapping
     order_types = {
         'buy': 'limit',
-        'sell': 'limit',
+        'sell': 'market',
         'stoploss': 'market',
         'stoploss_on_exchange': False
     }
 
     # Number of candles the strategy requires before producing valid signals
-    startup_candle_count: int = 20
+    startup_candle_count: int = 21
 
     # Optional time in force for orders
     order_time_in_force = {
@@ -47,36 +47,16 @@ class strato(IStrategy):
     }
 
     def informative_pairs(self):
-        """
-        Define additional, informative pair/interval combinations to be cached from the exchange.
-        These pair/interval combinations are non-tradeable, unless they are part
-        of the whitelist as well.
-        For more information, please consult the documentation
-        :return: List of tuples in the format (pair, interval)
-            Sample: return [("ETH/USDT", "5m"),
-                            ("BTC/USDT", "15m"),
-                            ]
-        """
         return []
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-        """
-        Adds several different TA indicators to the given DataFrame
-
-        Performance Note: For the best performance be frugal on the number of indicators
-        you are using. Let uncomment only the indicator you are using in your strategies
-        or your hyperopt configuration, otherwise you will waste your memory and CPU usage.
-        :param dataframe: Dataframe with data from the exchange
-        :param metadata: Additional information, like the currently traded pair
-        :return: a Dataframe with all mandatory indicators for the strategies
-        """
-
+        
         # Bollinger bands
-        bollinger = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=3.2)
-        dataframe['bb_high'] = bollinger['upper']
+        bollinger = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=2.1)
+        dataframe['bbhigh'] = bollinger['upper']
 
         bollinger2 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=2.7)
-        dataframe['bb_low'] = bollinger2['lower']
+        dataframe['bblow'] = bollinger2['lower']
 
         return dataframe
 
@@ -89,7 +69,7 @@ class strato(IStrategy):
         """
         dataframe.loc[
             (
-                dataframe['close']<dataframe['bb_low']
+                ((dataframe['close']+dataframe['low'])/2) < dataframe['bblow']
             ),
             'buy'] = 1
 
@@ -104,7 +84,7 @@ class strato(IStrategy):
         """
         dataframe.loc[
             (
-                dataframe['close']>dataframe['bb_high']
+                ((dataframe['close']+dataframe['high'])/2) > dataframe['bbhigh']
             ),
             'sell'] = 1
         return dataframe
