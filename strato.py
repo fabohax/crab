@@ -6,15 +6,13 @@ from pandas import DataFrame
 import freqtrade.vendor.qtpylib.indicators as qtpylib
 from freqtrade.strategy.interface import IStrategy
 
+"""
+Strato Strategy
+Designed by @fabohax
+CC0 License
+"""
 
 class strato(IStrategy):
-    """
-    Default Strategy provided by freqtrade bot.
-    Please do not modify this strategy, it's  intended for internal use only.
-    Please look at the SampleStrategy in the user_data/strategy directory
-    or strategy repository https://github.com/freqtrade/freqtrade-strategies
-    for samples and inspiration.
-    """
     INTERFACE_VERSION = 2
 
     # Minimal ROI designed for the strategy
