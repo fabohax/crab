@@ -60,10 +60,7 @@ class strato(IStrategy):
 
     def populate_buy_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         """
-        Based on TA indicators, populates the buy signal for the given dataframe
-        :param dataframe: DataFrame
-        :param metadata: Additional information, like the currently traded pair
-        :return: DataFrame with buy column
+        BUY
         """
         dataframe.loc[
             (
@@ -75,10 +72,7 @@ class strato(IStrategy):
 
     def populate_sell_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         """
-        Based on TA indicators, populates the sell signal for the given dataframe
-        :param dataframe: DataFrame
-        :param metadata: Additional information, like the currently traded pair
-        :return: DataFrame with buy column
+        SELL
         """
         dataframe.loc[
             (
