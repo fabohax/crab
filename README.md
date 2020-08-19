@@ -17,7 +17,7 @@ Freqtrade trading strategy with Bollinger Bands.
 ### Backtested Results/Month
 * 10%-15%
 
-### Author License
-* Free
+### License
+* CC0 License
 
-#### (!) USE UNDER YOUR OWN RISK
+(!) USE UNDER YOUR OWN RISK
