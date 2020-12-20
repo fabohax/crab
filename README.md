@@ -17,7 +17,4 @@ Freqtrade trading strategy with Bollinger Bands and MACD.
 ### Backtested Results/Month
 * 10%-15%
 
-### License
-* CC0 License
-
 (!) USE UNDER YOUR OWN RISK
