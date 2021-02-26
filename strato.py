@@ -11,21 +11,28 @@ class strato(IStrategy):
     INTERFACE_VERSION = 2
 
     minimal_roi = {
-        "0": 0.07
+        "0": 0.0055,
+        "30": 0
     }
 
-    stoploss = -0.01
+    stoploss = -0.1
+
 
     timeframe = '1m'
 
     order_types = {
         'buy': 'limit',
-        'sell': 'limit',
+        'sell': 'market',
         'stoploss': 'market',
         'stoploss_on_exchange': False
     }
 
     startup_candle_count: int = 20
+
+    trailing_stop = True
+    trailing_stop_positive = 0.13267
+    trailing_stop_positive_offset = 0.22438
+    trailing_only_offset_is_reached = True
 
     order_time_in_force = {
         'buy': 'gtc',
@@ -43,19 +50,21 @@ class strato(IStrategy):
 
         # Bollinger bands
         bollinger = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=2.7)
-        dataframe['bblow'] = bollinger['lower']
+        dataframe['bblo'] = bollinger['lower']
+        dataframe['bbmi'] = bollinger['mid']
 
-        bollinger3 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=2.1)
-        dataframe['bbhi'] = bollinger3['upper']
+        bollinger2 = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=21, stds=1.1)
+        dataframe['bbhi'] = bollinger2['upper']
 
         # MACD
         macd = ta.MACD(dataframe)
         dataframe['macd'] = macd['macd']
         dataframe['macdsignal'] = macd['macdsignal']
-        dataframe['macdhist'] = macd['macdhist']
+        dataframe['macdhist'] = macd['macdhist']     
 
         # #RSI
         dataframe['rsi'] = ta.RSI(dataframe, timeperiod=14)
+        
         # #StochRSI 
         period = 14
         smoothD = 3
@@ -64,12 +73,6 @@ class strato(IStrategy):
         dataframe['srsi_k'] = stochrsi.rolling(SmoothK).mean() * 100
         dataframe['srsi_d'] = dataframe['srsi_k'].rolling(smoothD).mean()
 
-        # dataframe_5m = resample_to_interval(dataframe, 5)
-        # dataframe_5m['rsi']=ta.RSI(dataframe_5m, timeperiod=14)
-        # stochrsi_5m = (dataframe_5m['rsi'] - dataframe_5m['rsi'].rolling(period).min()) / (dataframe_5m['rsi'].rolling(period).max() - dataframe_5m['rsi'].rolling(period).min())
-        # dataframe_5m['srsik']= stochrsi_5m.rolling(SmoothK).mean() * 100
-        # dataframe_5m['srsid'] = dataframe_5m['srsi_k'].rolling(smoothD).mean()
-        # dataframe = resampled_merge(dataframe, dataframe_5m, fill_na=True)
 
         return dataframe
 
@@ -77,20 +80,8 @@ class strato(IStrategy):
 
         dataframe.loc[
             (
-                (
-                    (dataframe['low'] < dataframe['bblow']) &
-                    (dataframe['macd'] < 0)
-		        )|
-                (
-                    (dataframe['macdsignal'] < dataframe['macdhist']) &
-                    (dataframe['srsi_d'] < 12) &
-                    (dataframe['srsi_d'] > dataframe['srsi_k'])
-                )|
-                (
-                    (dataframe['srsi_k'] == 0) &
-                    (dataframe['srsi_d'] == 0)
-                )
-	    ),
+                (dataframe['low'] < dataframe['bblo']) & (dataframe['srsi_d']<7) & (dataframe['macd']<0)
+	        ),
             'buy'] = 1
 
         return dataframe
@@ -99,9 +90,7 @@ class strato(IStrategy):
 
         dataframe.loc[
             (
-                (dataframe['macdsignal'] > dataframe['macdhist'])
-                | (dataframe['close'] > dataframe['bbhi']) 
-                | (qtpylib.crossed_above(dataframe['srsi_k'],80))
+                (dataframe['high'] > dataframe['bbmi'])
             ),
             'sell'] = 1
         return dataframe
