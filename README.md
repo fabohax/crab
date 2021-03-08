@@ -1,5 +1,5 @@
 # Strato
-Stochastic RSI Freqtrade trading strategy.
+Stochastic RSI trading strategy.
 
 
 ### ROI
