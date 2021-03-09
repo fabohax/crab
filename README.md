@@ -1,5 +1,5 @@
 # Strato
-Stochastic RSI trading strategy.
+Stochastic RSI based trading strategy.
 
 
 ### ROI
