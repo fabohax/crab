@@ -41,10 +41,6 @@ class strato(IStrategy):
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
 
-        macd = ta.MACD(dataframe)
-        dataframe['macd'] = macd['macd']
-
-        
         p = 14
         d = 3
         k = 3
