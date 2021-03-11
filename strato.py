@@ -11,11 +11,10 @@ class strato(IStrategy):
     INTERFACE_VERSION = 2
 
     minimal_roi = {
-        "0": 0.021
+        "0": 0.012
     }
 
     stoploss = -0.1
-
 
     timeframe = '1m'
 
@@ -42,13 +41,15 @@ class strato(IStrategy):
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
 
-        # #RSI
-        dataframe['rsi'] = ta.RSI(dataframe, timeperiod=14)
+        macd = ta.MACD(dataframe)
+        dataframe['macd'] = macd['macd']
+
         
-        # #StochRSI 
         p = 14
         d = 3
         k = 3
+
+        dataframe['rsi'] = ta.RSI(dataframe, timeperiod=14)
         srsi  = (dataframe['rsi'] - dataframe['rsi'].rolling(p).min()) / (dataframe['rsi'].rolling(p).max() - dataframe['rsi'].rolling(p).min())
         dataframe['k'] = srsi.rolling(k).mean() * 100
         dataframe['d'] = dataframe['k'].rolling(d).mean()
@@ -59,10 +60,11 @@ class strato(IStrategy):
     def populate_buy_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
 
         dataframe.loc[
-            (
-                (dataframe['k'] < 20) &
-                (dataframe['k'] > dataframe['d'])
-	        ),
+        (
+                (dataframe['k'] < 18) &
+                (dataframe['k'] >= dataframe['d'])
+                
+	    ),
             'buy'] = 1
 
         return dataframe
@@ -71,8 +73,8 @@ class strato(IStrategy):
 
         dataframe.loc[
             (
-                (dataframe['d'] > 80) &
-                (dataframe['d'] > dataframe['k'])
+                (dataframe['k'] > 80) &
+                (dataframe['d'] >= dataframe['k'])
             ),
             'sell'] = 1
         return dataframe
