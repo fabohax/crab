@@ -1,5 +1,5 @@
 # Strato
-Stochastic RSI based trading strategy.
+Stochastic RSI based trading strategy for using with freqtrade bot.
 
 
 ### ROI
