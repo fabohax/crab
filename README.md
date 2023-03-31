@@ -1,3 +1,6 @@
+![crub](https://bafybeihi23dyn3pgfhcg6cllw37xo47dhmvynnlpgr7glwecvynca3yfwe.ipfs.w3s.link/crub.svg)
+
+
 # crub
 
 crub is a bot written in Ruby that utilizes the [OKEx API](https://www.okx.com/docs-v5/en/) to access and analyze financial data related to cryptocurrency trading.
