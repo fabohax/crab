@@ -1,4 +1,4 @@
-<img src="https://bafybeihi23dyn3pgfhcg6cllw37xo47dhmvynnlpgr7glwecvynca3yfwe.ipfs.w3s.link/crub.svg" alt="crub" height="200"/>
+<img src="https://bafybeihi23dyn3pgfhcg6cllw37xo47dhmvynnlpgr7glwecvynca3yfwe.ipfs.w3s.link/crub.svg" alt="crub" height="100" style="margin:0;"/>
 
 # crub
 
