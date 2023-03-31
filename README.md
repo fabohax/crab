@@ -2,7 +2,7 @@
 
 # crub
 
-crub is a bot written in Ruby that utilizes the [OKEx API](https://www.okx.com/docs-v5/en/) to access and analyze financial data related to cryptocurrency trading.
+<em>crub</em> is a bot written in Ruby that utilizes the [OKEx API](https://www.okx.com/docs-v5/en/) to access and analyze financial data related to cryptocurrency trading.
 
 It includes functions such as obtaining market data, managing user accounts, and placing trades based on [Dollar-Cost Averaging](https://www.investopedia.com/terms/d/dollarcostaveraging.asp) (DCA) strategy. The script is designed to run automatically at specified intervals using a scheduler, with the aim of optimizing trading strategies and generating profits.
 
