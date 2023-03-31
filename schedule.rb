@@ -6,8 +6,8 @@ Dotenv.load
 # Configura la zona horaria
 Time.zone = 'America/Lima'
 
-# Carga el archivo bot.rb
-require_relative 'bot'
+# Carga el archivo crub.rb
+require_relative 'crub'
 
 # Inicializa el planificador
 scheduler = Rufus::Scheduler.new
