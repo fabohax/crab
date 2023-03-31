@@ -38,13 +38,13 @@ It includes functions such as obtaining market data, managing user accounts, and
 
 **Warning: Use at Your Own Risk**
 
-This script is designed to automate trading activities in the cryptocurrency market. However, the use of bots for trading carries inherent risks and uncertainties, and there is no guarantee that the bot will perform as intended or generate profits. 
+<em>This script is designed to automate trading activities in the cryptocurrency market. However, the use of bots for trading carries inherent risks and uncertainties, and there is no guarantee that the bot will perform as intended or generate profits. 
 
 Before using this script, it is important to understand the risks involved with trading cryptocurrencies, including market volatility, liquidity risks, and potential regulatory and legal issues. 
 
 Furthermore, it is recommended that you thoroughly test the bot in a simulated trading environment before using it with real funds. It is also important to monitor the bot's performance regularly and adjust its parameters as needed.
 
-The creators of this script are not responsible for any losses or damages that may occur as a result of using the bot, and by using it, you acknowledge and accept all risks associated with cryptocurrency trading.
+The creators of this script are not responsible for any losses or damages that may occur as a result of using the bot, and by using it, you acknowledge and accept all risks associated with cryptocurrency trading.</em>
 
 
 
