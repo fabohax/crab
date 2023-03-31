@@ -16,9 +16,11 @@ It includes functions such as obtaining market data, managing user accounts, and
   
 3. Create a .env file in the root directory of the project and add the following variables with your own credentials:
 
-  ```OKEX_API_KEY=your_api_key
+  ```
+  OKEX_API_KEY=your_api_key
   OKEX_SECRET_KEY=your_secret_key
-  OKEX_PASSPHRASE=your_passphrase```
+  OKEX_PASSPHRASE=your_passphrase
+  ```
   
 4. Modify the bot.rb file to suit your trading strategy.
 
