@@ -49,9 +49,9 @@ It includes functions such as obtaining market data, managing user accounts, and
   That's it! Crub should now be up and running, executing your trading strategy on the OKEx platform.
   
   
-  
 
-**[!] Warning: Use at Your Own Risk**
+
+# **[!] Warning: Use at Your Own Risk**
 
 <em>This script is designed to automate trading activities in the cryptocurrency market. However, the use of bots for trading carries inherent risks and uncertainties, and there is no guarantee that the bot will perform as intended or generate profits. 
 
