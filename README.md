@@ -1,4 +1,4 @@
-# kay
+# strato
 
 The bot script is a program written in Ruby that utilizes the OKEx API to access and analyze financial data related to cryptocurrency trading.
 
