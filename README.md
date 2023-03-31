@@ -1,5 +1,5 @@
-![crub](https://bafybeihi23dyn3pgfhcg6cllw37xo47dhmvynnlpgr7glwecvynca3yfwe.ipfs.w3s.link/crub.svg)
 
+<img src="https://bafybeihi23dyn3pgfhcg6cllw37xo47dhmvynnlpgr7glwecvynca3yfwe.ipfs.w3s.link/crub.svg" alt="crub" height="200"/>
 
 # crub
 
