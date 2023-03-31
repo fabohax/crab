@@ -14,7 +14,9 @@ It includes functions such as obtaining market data, managing user accounts, and
 
 2. Install the required gems:
 
-  `bundle install`
+  ```
+  bundle install
+  ```
   
 3. Create a .env file in the root directory of the project and add the following variables with your own credentials:
 
@@ -28,22 +30,28 @@ It includes functions such as obtaining market data, managing user accounts, and
 
 5. Set up the cron job to run the script at your desired intervals. For example, to run the script every 5 minutes:
 
-  `*/5 * * * * cd /path/to/project && ruby bot.rb`
+  ```
+  */5 * * * * cd /path/to/project && ruby bot.rb
+  ```
 
 6. Start the cron job:
 
-  `sudo service cron start`
+  ```
+  sudo service cron start
+  ```
  
 7. Verify that the cron job is running:
 
-  `sudo service cron status`
+  ```
+  sudo service cron status
+  ```
   
   That's it! Crub should now be up and running, executing your trading strategy on the OKEx platform.
   
   
   
 
-**[!]**
+*[!]*
 
 **Warning: Use at Your Own Risk**
 
