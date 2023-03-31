@@ -5,7 +5,7 @@ require 'rufus-scheduler'
 Dotenv.load
 
 # Initialize API client with environment variables
-client = Okex::Client.new(api_key: ENV['API_KEY'], api_secret: ENV['API_SECRET'], api_passphrase: ENV['API_PASSPHRASE'], instrument_id: ENV['INSTRUMENT_ID'])
+client = Okex::Client.new(api_key: ENV['API_KEY'], api_secret: ENV['API_SECRET'], api_passphrase: ENV['API_PASSPHRASE'])
 
 # Define a scheduler that runs every 15 seconds
 scheduler = Rufus::Scheduler.new
