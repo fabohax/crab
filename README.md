@@ -48,7 +48,7 @@ It includes functions such as obtaining market data, managing user accounts, and
   sudo service cron status
   ```
   
-  That's it! Crub should now be up and running, executing your trading strategy on the OKEx platform.
+  That's it! Crub should now be up and running, executing your trading strategy on the OKX platform.
   
   
 
