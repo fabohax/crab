@@ -1,6 +1,8 @@
 require 'okex-api'
 require 'dotenv'
 require 'rufus-scheduler'
+require 'logger'
+
 
 Dotenv.load
 
@@ -21,3 +23,9 @@ end
 loop do
   sleep 1
 end
+
+
+logger = Logger.new('logfile.log')
+logger.datetime_format = '%Y-%m-%d %H:%M:%S'
+logger.info("#{Time.now.strftime(logger.datetime_format)}: Message to log")
+
