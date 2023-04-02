@@ -8,6 +8,8 @@ Dotenv.load
 
 # Initialize API client with environment variables
 client = OKX::Client.new(api_key: ENV['API_KEY'], api_secret: ENV['API_SECRET'], api_passphrase: ENV['API_PASSPHRASE'])
+markets = OKEX::API::Markets.new
+
 
 # Define a scheduler that runs every 15 seconds
 scheduler = Rufus::Scheduler.new
