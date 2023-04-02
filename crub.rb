@@ -1,4 +1,4 @@
-require 'okex-api'
+require 'okex-ruby-api'
 require 'dotenv'
 require 'rufus-scheduler'
 require 'logger'
@@ -7,7 +7,7 @@ require 'logger'
 Dotenv.load
 
 # Initialize API client with environment variables
-client = Okex::Client.new(api_key: ENV['API_KEY'], api_secret: ENV['API_SECRET'], api_passphrase: ENV['API_PASSPHRASE'])
+client = OKX::Client.new(api_key: ENV['API_KEY'], api_secret: ENV['API_SECRET'], api_passphrase: ENV['API_PASSPHRASE'])
 
 # Define a scheduler that runs every 15 seconds
 scheduler = Rufus::Scheduler.new
@@ -27,5 +27,5 @@ end
 
 logger = Logger.new('logfile.log')
 logger.datetime_format = '%Y-%m-%d %H:%M:%S'
-logger.info("#{Time.now.strftime(logger.datetime_format)}: Message to log")
+logger.info("#{Time.now.strftime(logger.datetime_format)}: Running bot...")
 
