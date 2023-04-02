@@ -1,6 +1,8 @@
+<img src="https://bafybeib2q3dv22gkf5jc5vamy653jsvqkvek4ulmqu6ynrmjzlv64zbpde.ipfs.w3s.link/crub.svg" alt="crub" height="180" style="margin:0;"/>
+
 # crub
 
-The bot script is a program written in Ruby that utilizes the [OKEx API](https://www.okx.com/docs-v5/en/) to access and analyze financial data related to cryptocurrency trading.
+<b>crub</b> is a bot written in Ruby that utilizes the [OKX API](https://www.okx.com/docs-v5/en/) to access and analyze financial data related to cryptocurrency trading.
 
 It includes functions such as obtaining market data, managing user accounts, and placing trades based on [Dollar-Cost Averaging](https://www.investopedia.com/terms/d/dollarcostaveraging.asp) (DCA) strategy. The script is designed to run automatically at specified intervals using a scheduler, with the aim of optimizing trading strategies and generating profits.
 
@@ -9,7 +11,7 @@ It includes functions such as obtaining market data, managing user accounts, and
 1. Clone the repository:
 
   ```
-  git clone https://github.com/your-username/your-repo.git
+  git clone https://github.com/fabohax/crub.git
   ```
 
 2. Install the required gems:
@@ -46,7 +48,7 @@ It includes functions such as obtaining market data, managing user accounts, and
   sudo service cron status
   ```
   
-  That's it! Crub should now be up and running, executing your trading strategy on the OKEx platform.
+  That's it! Crub should now be up and running, executing your trading strategy on the OKX platform.
   
   
 
