@@ -47,7 +47,7 @@ It includes functions such as obtaining market data, managing user accounts, and
   sudo service cron status
   ```
   
-  That's it! Crub should now be up and running, executing your trading strategy on SIDESHIFT.AI.
+  That's it! Crub should now be up and running, executing your trading strategy on [SIDESHIFT.AI] (https://sideshift.ai)
   
   
 
