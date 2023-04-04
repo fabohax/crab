@@ -2,7 +2,7 @@
 
 # crub
 
-<b>crub</b> is a bot written in Ruby that utilizes the [SIDESHIFT API](https://documenter.getpostman.com/view/6895769/TWDZGvjd) or [OKX API](https://www.okx.com/docs-v5/en/) to access and analyze financial data related to cryptocurrency trading.
+<b>crub</b> is a bot written in Ruby that utilizes the [SIDESHIFT API](https://documenter.getpostman.com/view/6895769/TWDZGvjd) to access and analyze financial data related to cryptocurrency trading.
 
 It includes functions such as obtaining market data, managing user accounts, and placing trades based on [Dollar-Cost Averaging](https://www.investopedia.com/terms/d/dollarcostaveraging.asp) (DCA) strategy. The script is designed to run automatically at specified intervals using a scheduler, with the aim of optimizing trading strategies and generating profits.
 
@@ -23,9 +23,8 @@ It includes functions such as obtaining market data, managing user accounts, and
 3. Create a .env file in the root directory of the project and add the following variables with your own credentials:
 
   ```
-  OKEX_API_KEY=your_api_key
-  OKEX_SECRET_KEY=your_secret_key
-  OKEX_PASSPHRASE=your_passphrase
+  API_KEY=your_api_key
+  SECRET_KEY=your_secret_key
   ```
   
 4. Modify the bot.rb file to suit your trading strategy.
