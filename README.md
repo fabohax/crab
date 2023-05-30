@@ -64,5 +64,5 @@ The creators of this script are not responsible for any losses or damages that m
 
 
 
-# Stiil on Development
+# Still on Development
 
