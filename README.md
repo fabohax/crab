@@ -27,7 +27,7 @@ It includes functions such as obtaining market data, managing user accounts, and
   SECRET_KEY=your_secret_key
   ```
   
-4. Modify the bot.rb file to suit your trading strategy.
+4. Modify the bot.rb file to suit your trading strategy. Now is intended to buy 100 USDT of Bitcoin every sunday at midnight.
 
 5. Set up the cron job to run the script at your desired intervals. For example, to run the script every 5 minutes:
 
