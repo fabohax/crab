@@ -1,8 +1,8 @@
 <img src="https://bafybeib2q3dv22gkf5jc5vamy653jsvqkvek4ulmqu6ynrmjzlv64zbpde.ipfs.w3s.link/crub.svg" alt="crub" height="180" style="margin:0;"/>
 
-# crub
+# crab
 
-<b>crub</b> is a bot written in Ruby that utilizes the [SIDESHIFT API](https://documenter.getpostman.com/view/6895769/TWDZGvjd) to access and analyze financial data related to cryptocurrency trading.
+<b>crab</b> is a bot written in Ruby that utilizes the [SIDESHIFT API](https://documenter.getpostman.com/view/6895769/TWDZGvjd) to access and analyze financial data related to cryptocurrency trading.
 
 It includes functions such as obtaining market data, managing user accounts, and placing trades based on [Dollar-Cost Averaging](https://www.investopedia.com/terms/d/dollarcostaveraging.asp) (DCA) strategy. The script is designed to run automatically at specified intervals using a scheduler, with the aim of optimizing trading strategies and generating profits.
 
@@ -11,7 +11,7 @@ It includes functions such as obtaining market data, managing user accounts, and
 1. Clone the repository:
 
   ```
-  git clone https://github.com/fabohax/crub.git
+  git clone https://github.com/fabohax/crab.git
   ```
 
 2. Install the required gems:
@@ -20,22 +20,15 @@ It includes functions such as obtaining market data, managing user accounts, and
   bundle install
   ```
   
-3. Create a .env file in the root directory of the project and add the following variables with your own credentials:
+3. Modify the crub.rb file to suit your trading strategy. Now is intended to buy 100 USDT of Bitcoin every sunday at midnight.
+
+4. Set up the cron job to run the script at your desired intervals. For example, to run the script every 5 minutes:
 
   ```
-  API_KEY=your_api_key
-  SECRET_KEY=your_secret_key
-  ```
-  
-4. Modify the crub.rb file to suit your trading strategy. Now is intended to buy 100 USDT of Bitcoin every sunday at midnight.
-
-5. Set up the cron job to run the script at your desired intervals. For example, to run the script every 5 minutes:
-
-  ```
-  */5 * * * * cd /path/to/project && ruby bot.rb
+  */5 * * * * cd /path/to/project && ruby crab.rb
   ```
 
-6. Start the cron job:
+5. Start the cron job:
 
   ```
   sudo service cron start
@@ -49,8 +42,6 @@ It includes functions such as obtaining market data, managing user accounts, and
   
   That's it! Crub should now be up and running, executing your trading strategy on [SIDESHIFT.AI](https://sideshift.ai)
   
-  
-
 
 # **[!] Warning: Use at Your Own Risk**
 
@@ -61,8 +52,4 @@ Before using this script, it is important to understand the risks involved with 
 Furthermore, it is recommended that you thoroughly test the bot in a simulated trading environment before using it with real funds. It is also important to monitor the bot's performance regularly and adjust its parameters as needed.
 
 The creators of this script are not responsible for any losses or damages that may occur as a result of using the bot, and by using it, you acknowledge and accept all risks associated with cryptocurrency trading.</em>
-
-
-
-# Still on Development
 
