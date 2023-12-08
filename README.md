@@ -20,7 +20,7 @@ It includes functions such as obtaining market data, managing user accounts, and
   bundle install
   ```
   
-3. Modify the crub.rb file to suit your trading strategy. Now is intended to buy 100 USDT of Bitcoin every sunday at midnight.
+3. Modify the crub.rb file to suit your trading strategy. Now is intended to buy 100 USDT of Bitcoin every sunday at 0:00 h.
 
 4. Set up the cron job to run the script at your desired intervals. For example, to run the script every 5 minutes:
 
