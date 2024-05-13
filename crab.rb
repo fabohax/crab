@@ -1,16 +1,14 @@
 require 'httparty'
+require 'dotenv/load' # Load environment variables from .env file
 
 # SIDESHIFT API credentials
 SIDESHIFT_API_URL = "https://api.sideshift.ai/v1/"
-ACCESS_KEY = "YOUR_ACCESS_KEY"
-SECRET_KEY = "YOUR_SECRET_KEY"
+ACCESS_KEY = ENV['SIDESHIFT_ACCESS_KEY']
+SECRET_KEY = ENV['SIDESHIFT_SECRET_KEY']
 
 # User-defined variables
 BUY_AMOUNT_USDT = 100 # USDT amount to purchase Bitcoin with
 CURRENCY_PAIR = "BTC_USDT" # BTC/USDT currency pair
-
-# Cron job schedule
-CRON_SCHEDULE = "0 0 * * SUN" # Run script every Sunday at midnight
 
 # Helper function to make API calls
 def sideshift_api_call(path, method: :get, body: nil)
@@ -26,29 +24,39 @@ def sideshift_api_call(path, method: :get, body: nil)
 end
 
 # Fetch Bitcoin exchange rate
-exchange_rate = sideshift_api_call("rates/#{CURRENCY_PAIR}")["rate"]
-
-# Calculate Bitcoin amount to purchase based on exchange rate
-btc_amount = BUY_AMOUNT_USDT / exchange_rate
+def fetch_exchange_rate(currency_pair)
+  sideshift_api_call("rates/#{currency_pair}")["rate"]
+end
 
 # Place Bitcoin purchase order
-order_response = sideshift_api_call("orders", method: :post, body: {
-  sourceAmount: BUY_AMOUNT_USDT,
-  sourceCurrency: "USDT",
-  destinationCurrency: "BTC",
-  destinationAmount: btc_amount
-})
+def place_order(source_currency, destination_currency, source_amount)
+  btc_amount = source_amount / fetch_exchange_rate("#{destination_currency}_#{source_currency}")
+
+  order_response = sideshift_api_call("orders", method: :post, body: {
+    sourceAmount: source_amount,
+    sourceCurrency: source_currency,
+    destinationCurrency: destination_currency,
+    destinationAmount: btc_amount
+  })
+
+  order_response
+end
 
 # Print order details
-puts "Bitcoin purchase order placed successfully!"
-puts "Order ID: #{order_response['orderId']}"
-puts "Source amount: #{order_response['sourceAmount']} USDT"
-puts "Destination amount: #{order_response['destinationAmount']} BTC"
-puts "Exchange rate: #{exchange_rate}"
-
-# Run script with Cron
-cron = Cron.new
-cron.schedule(CRON_SCHEDULE) do
-  system('ruby buy_bitcoin.rb')
+def print_order_details(order_response, exchange_rate)
+  puts "Bitcoin purchase order placed successfully!"
+  puts "Order ID: #{order_response['orderId']}"
+  puts "Source amount: #{order_response['sourceAmount']} #{order_response['sourceCurrency']}"
+  puts "Destination amount: #{order_response['destinationAmount']} #{order_response['destinationCurrency']}"
+  puts "Exchange rate: #{exchange_rate}"
 end
-cron.run
+
+# Main function to execute trading strategy
+def execute_strategy
+  exchange_rate = fetch_exchange_rate(CURRENCY_PAIR)
+  order_response = place_order("USDT", "BTC", BUY_AMOUNT_USDT)
+  print_order_details(order_response, exchange_rate)
+end
+
+# Run trading strategy
+execute_strategy
