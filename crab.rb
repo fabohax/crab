@@ -2,7 +2,7 @@ require 'httparty'
 require 'dotenv/load' # Load environment variables from .env file
 
 # SIDESHIFT API credentials
-SIDESHIFT_API_URL = "https://api.sideshift.ai/v2/"
+SIDESHIFT_API_URL = "https://sideshift.ai/api/v2/"
 ACCESS_KEY = ENV['SIDESHIFT_ACCESS_KEY']
 SECRET_KEY = ENV['SIDESHIFT_SECRET_KEY']
 
