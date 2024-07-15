@@ -53,9 +53,14 @@ end
 
 # Main function to execute trading strategy
 def execute_strategy
-  exchange_rate = fetch_exchange_rate(CURRENCY_PAIR)
-  order_response = place_order("USDT", "BTC", BUY_AMOUNT_USDT)
-  print_order_details(order_response, exchange_rate)
+  begin
+    exchange_rate = fetch_exchange_rate(CURRENCY_PAIR)
+    order_response = place_order("USDT", "BTC", BUY_AMOUNT_USDT)
+    print_order_details(order_response, exchange_rate)
+  rescue StandardError => e
+    puts "Error executing trading strategy: #{e.message}"
+    # Add additional logging or error handling as needed
+  end
 end
 
 # Run trading strategy
