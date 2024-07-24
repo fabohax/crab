@@ -48,10 +48,6 @@ Now, **crub** should be operational, executing your defined trading strategy on 
 
 # **[!] Warning: Use at Your Own Risk**
 
-*This script automates cryptocurrency trading activities, which inherently carry risks and uncertainties. There is no guarantee that the bot will perform as intended or yield profits.*
-
 *Before deploying this script, it is crucial to understand the risks associated with cryptocurrency trading, including market volatility, liquidity risks, and regulatory challenges.*
 
 *It is strongly recommended to thoroughly test the bot in a simulated environment before using real funds. Regularly monitor its performance and adjust parameters as necessary.*
-
-*The creators of this script disclaim any responsibility for losses or damages resulting from its use. By using this script, you acknowledge and accept all risks associated with cryptocurrency trading.*
